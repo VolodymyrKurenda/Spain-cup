@@ -47,6 +47,9 @@ namespace Spain_cup_03_11_2025.DAL.Migrations
                     b.Property<int>("Lose")
                         .HasColumnType("int");
 
+                    b.Property<int>("Pts")
+                        .HasColumnType("int");
+
                     b.Property<int>("Tie")
                         .HasColumnType("int");
 

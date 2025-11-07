@@ -21,6 +21,8 @@ namespace Spain_cup_03_11_2025.DAL.Entities
 
         public int Tie { get; set; }
 
+        public int Pts { get; set; }
+
         public int Goals_scored { get; set; }
 
         public int Goals_Lost { get; set; }
@@ -30,6 +32,11 @@ namespace Spain_cup_03_11_2025.DAL.Entities
         public List<Club_Match> Club1_Matches { get; set; } = new();
 
         public List<Club_Match> Club2_Matches { get; set; } = new();
+
+        public void UpdatePoints()
+        {
+            Pts = Wins * 3 + Tie;
+        }
 
     }
 }

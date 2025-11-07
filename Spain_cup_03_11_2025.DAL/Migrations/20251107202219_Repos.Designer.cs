@@ -12,8 +12,8 @@ using Spain_cup_03_11_2025;
 namespace Spain_cup_03_11_2025.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251104193414_Finalversion2")]
-    partial class Finalversion2
+    [Migration("20251107202219_Repos")]
+    partial class Repos
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,6 +50,9 @@ namespace Spain_cup_03_11_2025.DAL.Migrations
                     b.Property<int>("Lose")
                         .HasColumnType("int");
 
+                    b.Property<int>("Pts")
+                        .HasColumnType("int");
+
                     b.Property<int>("Tie")
                         .HasColumnType("int");
 
@@ -79,6 +82,10 @@ namespace Spain_cup_03_11_2025.DAL.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("Club1_id");
+
+                    b.HasIndex("Club2_id");
 
                     b.HasIndex("MatchID");
 
@@ -173,11 +180,27 @@ namespace Spain_cup_03_11_2025.DAL.Migrations
 
             modelBuilder.Entity("Spain_cup_03_11_2025.DAL.Entities.Club_Match", b =>
                 {
+                    b.HasOne("Spain_cup_03_11_2025.DAL.Entities.Club", "Club1")
+                        .WithMany("Club1_Matches")
+                        .HasForeignKey("Club1_id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Spain_cup_03_11_2025.DAL.Entities.Club", "Club2")
+                        .WithMany("Club2_Matches")
+                        .HasForeignKey("Club2_id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Spain_cup_03_11_2025.DAL.Entities.Match", "Match")
                         .WithMany("Club_Match")
                         .HasForeignKey("MatchID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Club1");
+
+                    b.Navigation("Club2");
 
                     b.Navigation("Match");
                 });
@@ -210,7 +233,7 @@ namespace Spain_cup_03_11_2025.DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("Spain_cup_03_11_2025.DAL.Entities.Match", null)
-                        .WithMany("playrsscored")
+                        .WithMany("playersscored")
                         .HasForeignKey("MatchID");
 
                     b.Navigation("Club");
@@ -218,6 +241,10 @@ namespace Spain_cup_03_11_2025.DAL.Migrations
 
             modelBuilder.Entity("Spain_cup_03_11_2025.DAL.Entities.Club", b =>
                 {
+                    b.Navigation("Club1_Matches");
+
+                    b.Navigation("Club2_Matches");
+
                     b.Navigation("Players");
                 });
 
@@ -227,7 +254,7 @@ namespace Spain_cup_03_11_2025.DAL.Migrations
 
                     b.Navigation("Goals");
 
-                    b.Navigation("playrsscored");
+                    b.Navigation("playersscored");
                 });
 
             modelBuilder.Entity("Spain_cup_03_11_2025.DAL.Entities.Player", b =>

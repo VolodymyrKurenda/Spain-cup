@@ -5,7 +5,7 @@
 namespace Spain_cup_03_11_2025.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class Finalversion3 : Migration
+    public partial class Repos : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
